@@ -1,13 +1,31 @@
-function Incogni_go(tab){
-    chrome.tabs.remove(tab.id);
-    chrome.windows.getAll(function(all_windows){
-        let first_incognito=all_windows.find(window=>window.incognito);
-        if (first_incognito)
-            chrome.tabs.create({url:tab.url, windowId:first_incognito.id})
-        else
-            chrome.windows.create({url:tab.url, incognito:true});
+chrome.runtime.onInstalled.addListener(function(){
+    chrome.contextMenus.create({id:'incognigo', title:'Incogni Go', contexts:['all']});
+    chrome.storage.local.set({
+        'userList':     ['medium.com','economist.com'],
+        'closeTab':     true,
+        'clearHistory': false,
+        'state':        'normal'
+    })
+});
+
+function Incogni_Go(tab){
+    return new Promise(function(resolve,reject) {
+        chrome.storage.local.get(['userList','closeTab','clearHistory','state'],function(result){
+            if (result.closeTab) chrome.tabs.remove(tab.id, function(){});
+            if (result.clearHistory) chrome.history.deleteUrl({url:tab.url});
+            chrome.windows.getAll(function(all_windows){
+                let first_incognito=all_windows.find(window=>window.incognito);
+                if (first_incognito)
+                    chrome.tabs.create({url:tab.url, windowId:first_incognito.id},function(tab){
+                        resolve('hi new tab in old window!');
+                    });
+                else
+                    chrome.windows.create({url:tab.url, incognito:true, state:result.state},function(window){
+                        resolve('hi new window!');
+                    });
+            });
+        });
     });
-    return Promise.resolve('hi this works!'); 
 }
 
 function readUserList(){
@@ -23,9 +41,9 @@ function matchUserList(url){
     return new Promise(function(resolve,reject){
         readUserList()
         .then(userList=>{
-            first_match=userList.find(item=>
+            match=userList.find(item=>
                 url.match(new RegExp(item,'i')));
-            if (first_match)
+            if (match)
                 resolve(true);
             else
                 resolve(false);
@@ -33,13 +51,12 @@ function matchUserList(url){
     })
 }
 
-chrome.runtime.onInstalled.addListener(function(){
-    chrome.contextMenus.create({id:'incognigo', title:'Go Incognito', contexts:['all']});
-    chrome.storage.local.set({'userList':['medium.com','economist.com']})
-});
-
 chrome.contextMenus.onClicked.addListener(function(info,tab){
-    Incogni_go(tab);
+    const before = window.performance.now();
+    Incogni_Go(tab)
+    .then(test=>{
+        console.log(test, window.performance.now()-before)
+    });
 });
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
@@ -49,10 +66,9 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
         matchUserList(newUrl)
         .then(match=>{
             if (match){
-                Incogni_go(tab)
-                .then((check)=>{
-                    // alert(check);
-                    // alert(window.performance.now()-before);
+                Incogni_Go(tab)
+                .then(test=>{
+                    console.log(test, window.performance.now()-before)
                 });
             }
             

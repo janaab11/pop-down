@@ -2,13 +2,13 @@
     "manifest_version": 2,
     "name": "IncogniGo",
     "author": "Kumarmanas Nethil",
-    "version": "0.2",
+    "version": "0.3",
     "description": "Opening certain websites in Incognito mode automatically - like Medium, Economist etc",
     "background": {
         "scripts": ["background.js"],
         "persistent": false
     },
-    "page_action": {
+    "browser_action": {
       "default_popup": "popup.html",
       "default_title": "IncogniGo",
       "default_icon": {
@@ -27,6 +27,6 @@
       "page":"options.html",
       "open_in_tab":false
     },
-    "permissions": ["contextMenus","storage","tabs"],
+    "permissions": ["contextMenus","storage","tabs","history"],
     "content_security_policy": "script-src 'self' 'sha256-5O/dYqLrb7ACPE0af4/Ult0w4Q9AKtBs1OerNknJaWc='; object-src 'self'"
   }
