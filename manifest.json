@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "IncogniGo",
     "author": "Kumarmanas Nethil",
-    "version": "0.1",
+    "version": "0.2",
     "description": "Opening certain websites in Incognito mode automatically - like Medium, Economist etc",
     "background": {
         "scripts": ["background.js"],
