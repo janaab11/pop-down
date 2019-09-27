@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../static/jquery.min.js"></script>
+    <title>Incogni Go: Options</title>
+</head>
+
+<body>
+  <div class="outer-box">
+    <div class="og-tab">
+        <span>Manage the original tab after opening it in incognito:</span>
+        <p></p>
+        <label><input id='close-tab' type='checkbox' />Close Tab</label>
+        <label><input id='clear-history' type='checkbox' />Remove from History</label>
+    </div>
+    <p>&nbsp;</p>
+    <div class="incognito-tab">
+      <span>The incognito tab should open:</span>
+      
+      <select id="state">
+        <option value="maximized">Maximized</option>
+        <option value="minimized">Minimized</option>
+        <option value="normal">Normal (Default)</option>
+        <option value="fullscreen">Full Screen</option>
+      </select>
+    </div>
+    <p>&nbsp;</p>
+    <div class="user-list">
+        <span>Add websites you want to open in incognito automatically:</span>
+        <p></p>
+        <textarea id='user-list' rows='4' columns='50' > </textarea>
+    </div>
+    <div class="save-button">
+      <button id="save" style="margin-top: 20px;">Save</button> 
+      &nbsp;
+      <span id="status" style="color: red;"></span>
+    </div>
+  </div>
+  
+  <script src="options.js"></script>
+</body>
+
+</html>

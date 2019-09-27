@@ -1,11 +1,12 @@
 chrome.runtime.onInstalled.addListener(function(){
-    chrome.contextMenus.create({id:'incognigo', title:'Incogni Go', contexts:['all']});
+    chrome.contextMenus.create({id:'incognigo', title:'Incogni Go',
+        contexts:['page','link','image','video','audio','frame','selection']});
     chrome.storage.local.set({
-        'userList':     ['medium.com','economist.com'],
-        'closeTab':     true,
-        'clearHistory': false,
-        'state':        'normal'
-    })
+        'userList'      :['medium.com','economist.com'],
+        'closeTab'      :true,
+        'clearHistory'  :false,
+        'state'         :'normal'
+    });
 });
 
 function Incogni_Go(tab){
@@ -16,11 +17,13 @@ function Incogni_Go(tab){
             chrome.windows.getAll(function(all_windows){
                 let first_incognito=all_windows.find(window=>window.incognito);
                 if (first_incognito)
-                    chrome.tabs.create({url:tab.url, windowId:first_incognito.id},function(tab){
+                    chrome.tabs.create({url:tab.url, windowId:first_incognito.id},
+                        function(tab){
                         resolve('hi new tab in old window!');
                     });
                 else
-                    chrome.windows.create({url:tab.url, incognito:true, state:result.state},function(window){
+                    chrome.windows.create({url:tab.url, incognito:true, state:result.state},
+                        function(window){
                         resolve('hi new window!');
                     });
             });
