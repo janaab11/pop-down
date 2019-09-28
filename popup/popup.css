@@ -16,7 +16,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 }
 
 .current{
@@ -27,11 +27,16 @@ body {
 }
 
 #current-website{
+    border: 2px inset rgb(143, 143, 143);
     width: 200px;
+    background-color: rgb(218, 216, 216);
 }
 
 #add-current{
-    border: 1px solid black;
+    border: 2px solid black;
+    background: rgb(48, 180, 163);
+    color: black;
+    font-weight: bold;
 }
 
 .list{
@@ -42,6 +47,6 @@ body {
 }
 
 #user-list{
-    margin-top: -3px;
+    margin-top: -5px;
     margin-left: -40px;
 }

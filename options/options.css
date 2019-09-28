@@ -1,0 +1,61 @@
+head{
+    background-color: rgb(143, 143, 143);
+}
+
+body{
+    background-color: rgb(143, 143, 143);
+    font-size: 13px;
+}
+
+.outer-box{
+    height: 300px;
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.og-tab{
+
+}
+
+.options{
+    margin-top: 5px;
+}
+
+#close-tab{
+}
+
+#clear-history{
+}
+
+.incognito-tab{
+
+}
+
+#state{
+    border: 1px solid black;
+}
+
+.user-list{
+
+}
+
+#user-list{
+    margin-top: 5px;
+    border: 1px solid black;
+    width: 300px;
+}
+
+.save-button{
+
+}
+
+#save{
+    background: rgb(48, 180, 163);
+    border: 2px solid black;
+}
+
+#status{
+    color: rgb(59, 2, 2);
+}

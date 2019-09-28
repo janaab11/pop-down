@@ -1,39 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="../static/jquery.min.js"></script>
     <title>Incogni Go: Options</title>
+    <script src="../static/jquery.min.js"></script>
+    <link rel="stylesheet" href="options.css">
 </head>
 
 <body>
   <div class="outer-box">
     <div class="og-tab">
-        <span>Manage the original tab after opening it in incognito:</span>
-        <p></p>
-        <label><input id='close-tab' type='checkbox' />Close Tab</label>
-        <label><input id='clear-history' type='checkbox' />Remove from History</label>
+        <span style="font-weight: bold">Manage the original tab after opening it in incognito:</span>
+        <div class="options">
+            <label><input id='close-tab' type='checkbox'  />Close Tab</label>
+            <label><input id='clear-history' type='checkbox' />Remove from History</label>
+        </div>
     </div>
-    <p>&nbsp;</p>
+    <!-- <p>&nbsp;</p> -->
     <div class="incognito-tab">
-      <span>The incognito tab should open:</span>
+      <span style="font-weight: bold">The incognito tab should open:</span>
       
-      <select id="state">
+      <select id="state" style="background-color: rgb(218, 216, 216)">
         <option value="maximized">Maximized</option>
         <option value="minimized">Minimized</option>
         <option value="normal">Normal (Default)</option>
         <option value="fullscreen">Full Screen</option>
       </select>
     </div>
-    <p>&nbsp;</p>
+    <!-- <p>&nbsp;</p> -->
     <div class="user-list">
-        <span>Add websites you want to open in incognito automatically:</span>
-        <p></p>
-        <textarea id='user-list' rows='4' columns='50' > </textarea>
+        <span style="font-weight: bold">Add websites you want to open in incognito automatically:</span>
+        <textarea id='user-list' rows='4' columns='50' 
+        style="background-color: rgb(218, 216, 216)" > </textarea>
     </div>
     <div class="save-button">
-      <button id="save" style="margin-top: 20px;">Save</button> 
+      <button id="save" >
+        Save
+      </button> 
       &nbsp;
-      <span id="status" style="color: red;"></span>
+      <span id="status"></span>
     </div>
   </div>
   
