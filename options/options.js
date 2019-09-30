@@ -18,7 +18,12 @@ $('#save').click(function(){
         'state'         :document.getElementById('state').value
     },
     function(){
-        document.getElementById('status').textContent='Saved!';
-        setTimeout(function(){document.getElementById('status').textContent='';},2000);
+        let saveElement = document.getElementById('save');
+        saveElement.textContent='Saved!';
+        saveElement.style='font-weight:bold';
+        setTimeout(function(){
+            saveElement.textContent='Save';
+            saveElement.style='font-weight:normal';
+        },2000);
     });
 });

@@ -56,6 +56,6 @@ body{
     border: 2px solid black;
 }
 
-#status{
-    color: rgb(59, 2, 2);
+#save:focus {
+    outline: none;
 }
