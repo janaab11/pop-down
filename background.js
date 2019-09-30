@@ -1,17 +1,24 @@
 chrome.runtime.onInstalled.addListener(function(){
-    chrome.contextMenus.create({id:'incognigo', title:'Incogni Go',
+    chrome.contextMenus.create({id:'popdown', title:'Pop Down',
         contexts:['page','link','image','video','audio','frame','selection']});
     chrome.storage.local.set({
-        'userList'      :['medium.com','economist.com'],
+        'userList'      :['5movies.cloud'],
         'closeTab'      :true,
-        'clearHistory'  :false,
-        'state'         :'normal'
+        'clearHistory'  :false
     });
 });
 
-function Incogni_Go(tab){
+chrome.contextMenus.onClicked.addListener(function(info,tab){
+    chrome.storage.local.get(['userList'],function(result){
+        let userList=result.userList;
+        userList.push(tab.url.split('.com')[0]);
+        chrome.storage.local.set({'userList':userList});
+    });
+});
+
+function Pop_Down(tab){
     return new Promise(function(resolve,reject) {
-        chrome.storage.local.get(['userList','closeTab','clearHistory','state'],function(result){
+        chrome.storage.local.get(['closeTab','clearHistory'],function(result){
             if (result.closeTab) chrome.tabs.remove(tab.id, function(){});
             if (result.clearHistory) chrome.history.deleteUrl({url:tab.url});
             chrome.windows.getAll(function(all_windows){
@@ -22,7 +29,7 @@ function Incogni_Go(tab){
                         resolve('hi new tab in old window!');
                     });
                 else
-                    chrome.windows.create({url:tab.url, incognito:true, state:result.state},
+                    chrome.windows.create({url:tab.url, incognito:true},
                         function(window){
                         resolve('hi new window!');
                     });
@@ -54,22 +61,14 @@ function matchUserList(url){
     })
 }
 
-chrome.contextMenus.onClicked.addListener(function(info,tab){
-    const before = window.performance.now();
-    Incogni_Go(tab)
-    .then(test=>{
-        console.log(test, window.performance.now()-before)
-    });
-});
-
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-    if((changeInfo.url)&&(!tab.incognito)){
+    if(changeInfo.url){
         const before = window.performance.now();
         let newUrl=changeInfo.url;
         matchUserList(newUrl)
         .then(match=>{
             if (match){
-                Incogni_Go(tab)
+                Pop_Down(tab)
                 .then(test=>{
                     console.log(test, window.performance.now()-before)
                 });

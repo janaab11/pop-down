@@ -1,2 +1,2 @@
 # incogni-go
- open certain sites to incognito automatically
+Closes pop-up windows automatically for blacklisted sites. Helps with streaming content on non-standard websites like live sports, movies etc
